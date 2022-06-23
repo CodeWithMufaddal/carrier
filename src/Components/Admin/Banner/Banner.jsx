@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
-import './AdminSection.css'
+import '../AdminSection.css'
 import BannerPopUp from './BannerPopUp';
-import { useStateProvider } from '../../Context/StateProvider';
+import { useTheme } from '../../../Context/ThemeProvider';
+import { useBanner } from '../../../Context/BannerProvider';
 
 
 const Banner = () => {
-  const { style, banner, modal, modalRef, popUpBanner, setPopUpBanner, bid, setBid, ebanner, setEbanner, deleteBanner } = useStateProvider();
+  const { banner, modal, modalRef, popUpBanner, setPopUpBanner, bid, setBid, ebanner, setEbanner, deleteBanner } = useBanner();
+  const { style } = useTheme();
   const { Primary, Htext, Ntext, } = style;
 
 
@@ -63,12 +65,6 @@ const Banner = () => {
 
       <div className="tabs">
         <div className={`mb-4  `}>
-          {/* <InfiniteScroll
-            dataLength={banner.length}
-            next={fetchMoreData}
-            hasMore={banner.length !== totaleResult.banner}
-            loader={<h4>Loading...</h4>}
-          > */}
           {banner.map((banner, i) => {
 
             return (
@@ -83,7 +79,6 @@ const Banner = () => {
                       <div className="iconToggle m-1 ">
                         <button type="button" className={`trashIcon text-${Ntext}   mx-2 f-5`}
                           data-bs-toggle="modal" data-bs-target={` #${popUpBanner} `}
-                          // data-bs-whatever="@mdo"
                           ref={modalRef}
                           onClick={() => handelupdatebanner(banner)}
 

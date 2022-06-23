@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 
-import Contaxt from './CreateStateContaxt'
+import { BannerContaxt } from './CreateStateContaxt'
 
 
-const StateProvider = ({ children }) => {
+const BannerProvider = ({ children }) => {
+
 
    const modalRef = useRef(null)
    const [first, setfirst] = useState("second")
@@ -30,41 +31,7 @@ const StateProvider = ({ children }) => {
       application: 0,
       openings: 0
    })
-   const [style, setStyle] = useState({
-      // Default Style is White based 
-
-      Htext: "primary",
-      Ntext: "dark",
-      Primary: "white",
-      Secondary: "light",
-      invert: 1,
-      toggle: "light"
-   })
-
-   const toggleTheme = () => {
-      if (style.toggle === "light") {
-         setStyle({
-            ...style,
-            Htext: "success",
-            Ntext: "white",
-            Primary: "dark",
-            Secondary: "secondary",
-            invert: 0,
-            toggle: "dark"
-         })
-      } else {
-         setStyle({
-            ...style,
-            Htext: "primary",
-            Ntext: "dark",
-            Primary: "white",
-            Secondary: "light",
-            invert: 1,
-            toggle: "light"
-         })
-      }
-   }
-
+ 
    const modal = async (e) => {
       console.log(modalRef, "<-- modalRef")
    }
@@ -94,7 +61,7 @@ const StateProvider = ({ children }) => {
          headers: {
             'Content-Type': 'application/json',
             // 'Authorization': `${localStorage.getItem('jwt')}`
-            'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjYyYjE5YzVhNjk5YmU3MTRhZDM5MDllNyJ9LCJpYXQiOjE2NTU4MTY5NjB9.hQLdlfX5E-pej7qnDgK0rvULRxuqTDiw_F95luYyPkc"
+            'Authorization': localStorage.getItem('token')
          },
          body: JSON.stringify(data)
       })
@@ -118,7 +85,7 @@ const StateProvider = ({ children }) => {
          method: 'PUT',
          headers: {
             'Content-Type': 'application/json',
-            'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjYyYjE5YzVhNjk5YmU3MTRhZDM5MDllNyJ9LCJpYXQiOjE2NTU4MTY5NjB9.hQLdlfX5E-pej7qnDgK0rvULRxuqTDiw_F95luYyPkc"
+            'Authorization': localStorage.getItem('token')
          },
          body: JSON.stringify(data)
       })
@@ -127,11 +94,6 @@ const StateProvider = ({ children }) => {
       if (!response.success) return alert('banner not found ')
       setProgress(90)
       console.log(ebanner, "this it")
-      // setEbanner(banner => [...banner, response.banner])
-      // banner.forEach(e => {
-      //    console.log(e)
-      //    if (e._id === bid) { console.log("ebanner") }
-      // });
 
       banner.map(e => {
          if (e._id === bid) {
@@ -148,17 +110,14 @@ const StateProvider = ({ children }) => {
    }
 
    const deleteBanner = async (id) => {
-      setProgress(30)
       let ask = window.confirm("are you sure you want to delete this banner?")
       if (!ask) return ask
-      console.log(ask)
       setProgress(50)
-      console.log(bid)
       let response = await fetch(`http://localhost:5500/api/banner/deletebanner/${id}`, {
          method: 'DELETE',
          headers: {
             'Content-Type': 'application/json',
-            'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6eyJpZCI6IjYyYjE5YzVhNjk5YmU3MTRhZDM5MDllNyJ9LCJpYXQiOjE2NTU4MTY5NjB9.hQLdlfX5E-pej7qnDgK0rvULRxuqTDiw_F95luYyPkc"
+            'Authorization': localStorage.getItem('token')
          }
       })
       setProgress(70)
@@ -166,8 +125,8 @@ const StateProvider = ({ children }) => {
       console.log(response, 'this is a json response')
       if (!response.success) return alert('banner not found ')
       setProgress(90)
-      console.log(ebanner, "this it")
 
+      await fetchAllBanner()
 
       setProgress(100)
       return response.success
@@ -176,27 +135,27 @@ const StateProvider = ({ children }) => {
 
    useEffect(() => {
       fetchAllBanner()
-      // return () => {
-      //    fetchAllBanner()
-      // }
-      // setProgress(100)
-   }, [setBanner])
+      // localStorage.setItem("style", 'light')
 
- 
+      return () => {
+         setProgress(100)
+         fetchAllBanner()
+      }
+   }, [setBanner])
 
 
    return (
-      <Contaxt.Provider value={{ first, setfirst, style, setStyle, toggleTheme, container, setContainer, fetchAllBanner, banner, createBanner, progress, setProgress, cbanner, setCbanner, totaleResult, setTotaleResult, deleteBanner, updateBanner, modalRef, modal, popUpBanner, setPopUpBanner, ebanner, setEbanner, bid, setBid }}>
+      <BannerContaxt.Provider value={{ first, setfirst, container, setContainer, fetchAllBanner, banner, createBanner, progress, setProgress, cbanner, setCbanner, totaleResult, setTotaleResult, deleteBanner, updateBanner, modalRef, modal, popUpBanner, setPopUpBanner, ebanner, setEbanner, bid, setBid }}>
          {children}
-      </Contaxt.Provider>
+      </BannerContaxt.Provider>
    )
 }
 
-const useStateProvider = () => {
-   const context = useContext(Contaxt)
+const useBanner = () => {
+   const context = useContext(BannerContaxt)
    return context
 }
 
 
 
-export { useStateProvider, StateProvider }
+export { BannerProvider, useBanner }

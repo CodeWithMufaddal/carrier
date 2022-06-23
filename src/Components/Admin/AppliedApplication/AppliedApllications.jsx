@@ -1,10 +1,11 @@
 import React from 'react'
-import { useStateProvider } from '../../Context/StateProvider';
+import { useAppliedApplication } from '../../../Context/AppliedApplicationProvider';
+import { useTheme } from '../../../Context/ThemeProvider';
 
 
 const AppliedApllications = () => {
 
-  const { style } = useStateProvider();
+  const { style } = useTheme();
   const { Primary, Secondary, Htext, Ntext, invert } = style;
 
   const img = [1, 2, 3]

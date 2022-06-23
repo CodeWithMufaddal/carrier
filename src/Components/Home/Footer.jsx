@@ -1,11 +1,11 @@
 import React from 'react'
 import './Footer.css'
-import { useStateProvider } from '../../Context/StateProvider';
+import { useTheme } from '../../Context/ThemeProvider';
 
 
 const Footer = () => {
 
-  const { style } = useStateProvider();
+  const { style } = useTheme();
   const { Primary, Secondary, Htext, Ntext, invert } = style;
 
   return (

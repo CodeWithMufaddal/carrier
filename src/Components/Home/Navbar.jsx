@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useStateProvider } from '../../Context/StateProvider';
+import { useBanner } from '../../Context/BannerProvider';
+import { useTheme } from '../../Context/ThemeProvider';
 
 const Navbar = () => {
-  const { style, toggleTheme } = useStateProvider();
+  const { style, toggleTheme } = useTheme();
   const { Primary, Secondary, Htext, Ntext, invert } = style;
   const location = useLocation();
 

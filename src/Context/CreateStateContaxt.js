@@ -1,7 +1,11 @@
 import { createContext } from 'react'
 
-const Contaxt = createContext();
+const BannerContaxt = createContext();
+const AuthContext = createContext();
+const OpenningContext = createContext();
+const AppliedApplicationContext = createContext();
+const ThemeContext = createContext();
 
-export default Contaxt;
+export { AuthContext, BannerContaxt, OpenningContext, AppliedApplicationContext, ThemeContext };
 
 

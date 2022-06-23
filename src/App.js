@@ -1,31 +1,32 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import './App.css';
-import Navbar from './Components/Home/Navbar';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Main from './Components/Home/Main';
-import AdminMain from './Components/Admin/Main';
-import ProtectedRoute from './Components/Auth/ProtectedRoute';
-import LoadingBar from 'react-top-loading-bar'
 
+// ===== Components ====
+import Navbar from './Components/Home/Navbar';
+import Main from './Components/Home/Main';
+import ProtectedRoute from './Components/Auth/ProtectedRoute';
+import AdminMain from './Components/Admin/Main';
+import AdminProtectedRoute from './Components/Auth/AdminProtectedRoute';
+import Login from './Components/Auth/Login';
 import Footer from './Components/Home/Footer';
-import Application from './Components/Application/Application';
-import { useStateProvider } from './Context/StateProvider';
 import GoToTop from './Components/GoToTop';
+import Application from './Components/Application/Application';
+
+// ======= external components =====
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import LoadingBar from 'react-top-loading-bar'
+import { useBanner } from './Context/BannerProvider';
+import { useTheme } from './Context/ThemeProvider'
 
 
 const App = () => {
-  const { style, progress, seTprogress, tprogress, setProgress } = useStateProvider();
+  const { progress, setProgress } = useBanner();
+  
+  const { style } = useTheme();
+
 
   const ref = React.useRef(null);
 
-  React.useEffect(() => {
-    // ref.current.continuousStart()
-
-    setProgress(100)
-
-
-
-  }, [])
 
   return (
     <Router>
@@ -35,17 +36,9 @@ const App = () => {
           color="red"
           height={"3px"}
           progress={progress}
-          // progress={50}
           onLoaderFinished={() => setProgress(0)}
         />
-        {/* <LoadingBar
-          color="red"
-          height={"3px"}
-          progress={tprogress}
-          // progress={50}
-          ref={ref}
-          onLoaderFinished={() => seTprogress(10)}
-        /> */}
+
         <Navbar />
         <Routes>
           <Route path="/" element={<ProtectedRoute>  <Main />  </ProtectedRoute>} />
@@ -53,11 +46,18 @@ const App = () => {
 
           {/* Special For Admin */}
           <Route path="/admin" element={
-            <ProtectedRoute>
+            <AdminProtectedRoute>
               <AdminMain />
-            </ProtectedRoute>} />
-        </Routes>
+            </AdminProtectedRoute>
+          } />
 
+          <Route path="/admin/login" element={
+            // <ProtectedRoute>
+            <Login />
+            // </ProtectedRoute>
+          } />
+        </Routes>
+        {/* </Routes> */}
         <Footer />
       </div>
     </Router>

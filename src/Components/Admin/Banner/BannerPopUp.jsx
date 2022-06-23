@@ -1,14 +1,17 @@
 import React, { useState, useRef } from 'react'
-import { useStateProvider } from '../../Context/StateProvider';
-
 import { useNavigate } from 'react-router-dom'
+import { useBanner } from '../../../Context/BannerProvider';
+import { useTheme } from '../../../Context/ThemeProvider';
+
 
 const BannerPopUp = () => {
    const navigation = useNavigate()
    const reftoggle = useRef(null)
    const refClose = useRef(null)
 
-   const { style, createBanner, updateBanner, popUpBanner, setPopUpBanner, ebanner, setEbanner, bid, cbanner, setCbanner } = useStateProvider();
+   const { createBanner, updateBanner, popUpBanner, setPopUpBanner, ebanner, setEbanner, bid, cbanner, setCbanner } = useBanner();
+   const { style } = useTheme();
+   const { Primary, Secondary, Htext, Ntext, } = style;
 
    const handleonChange = (e) => {
       console.log(popUpBanner, "thisi is popUpBanner")
@@ -28,7 +31,6 @@ const BannerPopUp = () => {
 
 
 
-   const { Primary, Secondary, Htext, Ntext, } = style;
 
 
 

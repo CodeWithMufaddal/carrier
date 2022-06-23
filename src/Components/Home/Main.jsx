@@ -1,16 +1,15 @@
 import React, { useContext } from 'react'
-import { useStateProvider } from '../../Context/StateProvider'
+import { useTheme } from '../../Context/ThemeProvider'
 import JobOpenings from './JobOpenings'
 import Slider from './Slider'
 
 const Main = () => {
 
-   const { style } = useStateProvider();
+   const { style } = useTheme();
    const { Primary, Secondary, Htext, Ntext, invert } = style;
 
 
 
-   const { } = useStateProvider()
    return (
       <div className={`w-100 bg-${Primary} text-${Ntext}`}>
          <div className={` bg-${Secondary} page-center `}>

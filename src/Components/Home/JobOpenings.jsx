@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './JobOpenings.css'
-import { useStateProvider } from '../../Context/StateProvider';
+import { useTheme } from '../../Context/ThemeProvider';
 
 const JobOpenings = () => {
 
-   const { style } = useStateProvider();
+   const { style } = useTheme();
    const { Primary, Secondary, Htext, Ntext, invert } = style;
 
    return (

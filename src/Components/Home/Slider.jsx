@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Slider.css'
-import { useStateProvider } from '../../Context/StateProvider';
+import { useBanner } from '../../Context/BannerProvider';
+import { useTheme } from '../../Context/ThemeProvider'
 
 
 
 
 const Slider = () => {
-   const { style, banner } = useStateProvider();
+   const { banner } = useBanner();
+   const { style } = useTheme()
    const { Primary, Secondary, Htext, Ntext, invert } = style;
 
    const slider = useRef(null)
@@ -74,7 +76,7 @@ const Slider = () => {
                <div className="slideShow" style={{ transform: `translate3d(-${index * 100}%, 0 , 0)` }}>
                   {banner.map((banner, i) => {
                      return (<div key={i} className="slides flex-row-reverse">
-                        <div  className="slides"
+                        <div className="slides"
                            style={{ background: `url(${img}) center / cover` }}
                         >
                         </div>

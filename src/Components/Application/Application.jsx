@@ -1,14 +1,14 @@
 import React from 'react'
 import './Application.css'
 import ApplicationPopUp from './ApplicationPopUp'
-import { useStateProvider } from '../../Context/StateProvider';
+import { useTheme } from '../../Context/ThemeProvider';
 
 
 
 
 const Application = () => {
 
-   const { style } = useStateProvider();
+   const { style } = useTheme();
    const { Primary, Secondary, Htext, Ntext, invert } = style;
 
 

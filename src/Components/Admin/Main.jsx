@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-import { useStateProvider } from '../../Context/StateProvider';
 import { Link, useLocation } from 'react-router-dom'
-import Banner from './Banner';
-import Openings from './Openings';
-import AppliedApllications from './AppliedApllications';
+import Banner from './Banner/Banner';
+import Openings from './Openings/Openings';
+import AppliedApllications from './AppliedApplication/AppliedApllications';
 import SectionToggler from './SectionToggler';
+import { useBanner } from '../../Context/BannerProvider';
+import { useTheme } from '../../Context/ThemeProvider';
 
 
 
 const Main = () => {
    const location = useLocation();
-   const { style, container, setContainer } = useStateProvider();
+   const { container, setContainer, setProgress } = useBanner();
+   const { style } = useTheme();
    const { Primary, Secondary, Htext, Ntext, invert } = style;
 
    return (

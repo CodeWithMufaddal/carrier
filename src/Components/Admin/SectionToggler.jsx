@@ -1,14 +1,16 @@
 import React from 'react'
-import { useStateProvider } from '../../Context/StateProvider';
+import { useBanner } from '../../Context/BannerProvider';
+import { useTheme } from '../../Context/ThemeProvider';
 
 const SectionToggler = () => {
-   const { style, container, setContainer } = useStateProvider();
-   const { Primary, Secondary, Htext, Ntext, invert } = style;
+   const { container, setContainer } = useBanner();
+   const { style } = useTheme();
+   const { Secondary, Htext, Ntext } = style;
 
 
    return (
       <div className=" navbar-expand-lg">
-         <div className={` text-${Ntext} f-2 d-lg-flex d-none  border-bottom d-flex align-items-center justify-content-center fw-500  `} style={{height: '43.55px'}}><span>Section</span></div>
+         <div className={` text-${Ntext} f-2 d-lg-flex d-none  border-bottom d-flex align-items-center justify-content-center fw-500  `} style={{ height: '43.55px' }}><span>Section</span></div>
 
          <div className="p-2">
             <button className={` navbar-toggler bg-${Secondary} px-2 py-1 rounded border m-1  `} type="button" data-bs-toggle="collapse" data-bs-target="#AdminSectionSupportedContent" aria-controls="SectionSupportedContent" aria-expanded="false" aria-label="Toggle Section">
