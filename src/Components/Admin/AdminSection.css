@@ -1,0 +1,74 @@
+.bannerbgImg {
+   /* max-height: calc(5vw + 7rem); */
+   /* position: absolute; */
+   /* top: 0; */
+   /* right: 0; */
+   /* bottom: 0; */
+   /* left: 0; */
+   /* mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.489), rgba(0, 0, 0, 0.489)); */
+   /* pointer-events: none; */
+}
+.bannerbgImg:hover {
+   cursor: pointer;
+   /* box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0); */
+}
+
+.bannerbgImg::before {
+   content: "";
+   width: 100%;
+   height: 100%;
+   pointer-events: none;
+   position: absolute;
+   /* background: rgba(0, 0, 0); */
+   opacity: 0.4;
+   transition: all 0.1s ease-in-out;
+   z-index: 0;
+   position: absolute;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+}
+
+.bannerbgImg:hover::before {
+   transition: all 0.1s ease-in-out;
+   opacity: 0.6;
+}
+
+.topSection {
+   z-index: 10;
+}
+
+.innerCoverBanner,
+.bannerbgImg {
+   height: calc(6vw + 7rem);
+   flex: 1 0 70%;
+}
+
+@media screen and (max-width: 968px) {
+   .innerCoverBanner,
+   .bannerbgImg {
+      flex-wrap: wrap;
+      flex-direction: column;
+      height: calc(5vw + 4rem);
+   }
+}
+
+.trashIcon {
+   cursor: pointer;
+   background: transparent;
+}
+
+.ApplyedApplication__CoverLatter {
+   overflow: hidden;
+   display: flex;
+   width: 100%;
+   flex-wrap: wrap;
+}
+
+.iconToggle {
+   display: flex;
+   flex: 1 0 auto;
+   background: transparent;
+   justify-content: flex-end;
+}

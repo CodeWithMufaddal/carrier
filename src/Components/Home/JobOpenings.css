@@ -1,0 +1,14 @@
+.job__opnings {
+   padding: 10px 20px;
+}
+
+.job__opnings:hover {
+   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+   transition: all 0.2s;
+}
+
+.job__Link, .job__Link:hover {
+   color: black;
+   text-decoration: none;
+}
+
