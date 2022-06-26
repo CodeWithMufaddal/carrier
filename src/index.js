@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { BannerProvider } from './Context/BannerProvider';
 import { AuthProvider } from './Context/AuthProvider'
-import { OpenningProvider } from './Context/OpeningProvider';
+import { OpeningProvider } from './Context/OpeningProvider';
 import { AppliedApplicationProvider } from './Context/AppliedApplicationProvider';
 import { ThemeProvider } from './Context/ThemeProvider';
 
@@ -13,13 +13,13 @@ root.render(
   <React.StrictMode>
     <ThemeProvider >
       <AuthProvider>
-        <OpenningProvider>
+        <OpeningProvider>
           <BannerProvider>
             <AppliedApplicationProvider>
               <App />
             </AppliedApplicationProvider>
           </BannerProvider>
-        </OpenningProvider>
+        </OpeningProvider>
       </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>

@@ -15,14 +15,15 @@ import Application from './Components/Application/Application';
 // ======= external components =====
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import LoadingBar from 'react-top-loading-bar'
-import { useBanner } from './Context/BannerProvider';
 import { useTheme } from './Context/ThemeProvider'
+import Banner from './Components/Admin/Banner/Banner';
+import Openings from './Components/Admin/Openings/Openings';
+import AppliedApllications from './Components/Admin/AppliedApplication/AppliedApllications';
 
 
 const App = () => {
-  const { progress, setProgress } = useBanner();
-  
-  const { style } = useTheme();
+
+  const { style, progress, setProgress } = useTheme();
 
 
   const ref = React.useRef(null);
@@ -48,6 +49,31 @@ const App = () => {
           <Route path="/admin" element={
             <AdminProtectedRoute>
               <AdminMain />
+            </AdminProtectedRoute>
+          } >
+            <Route path="banner" element={<Banner />} />
+            <Route path="opening" element={<Openings />} />
+            <Route path="appliedApplication" element={<AppliedApllications />} />
+          </Route>
+          <Route path="/admin/banner" element={
+            <AdminProtectedRoute>
+              <AdminMain>
+                <Banner />
+              </AdminMain>
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/openings" element={
+            <AdminProtectedRoute>
+              <AdminMain />
+              <Openings />
+            </AdminProtectedRoute>
+          } />
+
+          <Route path="/admin/appliedapplication" element={
+            <AdminProtectedRoute>
+              <AdminMain />
+              <AppliedApllications />
             </AdminProtectedRoute>
           } />
 

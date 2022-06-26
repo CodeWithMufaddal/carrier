@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 
 import { BannerContaxt } from './CreateStateContaxt'
-
+import { useTheme } from './ThemeProvider'
 
 const BannerProvider = ({ children }) => {
 
+   const { progress, setProgress } = useTheme()
 
    const modalRef = useRef(null)
    const [first, setfirst] = useState("second")
-   const [progress, setProgress] = useState(0)
+
    const [container, setContainer] = useState('Banner');
    const [banner, setBanner] = useState([]);
 
@@ -31,7 +32,7 @@ const BannerProvider = ({ children }) => {
       application: 0,
       openings: 0
    })
- 
+
    const modal = async (e) => {
       console.log(modalRef, "<-- modalRef")
    }

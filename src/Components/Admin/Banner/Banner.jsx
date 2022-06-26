@@ -6,7 +6,7 @@ import { useBanner } from '../../../Context/BannerProvider';
 
 
 const Banner = () => {
-  const { banner, modal, modalRef, popUpBanner, setPopUpBanner, bid, setBid, ebanner, setEbanner, deleteBanner } = useBanner();
+  const { banner, popUpBanner, setPopUpBanner, bid, setBid, ebanner, setEbanner, deleteBanner } = useBanner();
   const { style } = useTheme();
   const { Primary, Htext, Ntext, } = style;
 
@@ -55,7 +55,7 @@ const Banner = () => {
 
     <div className={` w-100  d-flex flex-column  text-${Ntext}`}>
 
-      <div className={`section bg-${Primary}  d-flex align-items-center justify-content-between px-3 border-bottom`}>
+      <div className={`section bg-${Primary}  d-flex align-items-center justify-content-between px-3 border-bottom`} style={{ height: '43.55px' }}>
         <div className="f-1 fw-500"><span>Banner</span></div>
         <div className="m-2">
           <BannerPopUp />
@@ -79,7 +79,6 @@ const Banner = () => {
                       <div className="iconToggle m-1 ">
                         <button type="button" className={`trashIcon text-${Ntext}   mx-2 f-5`}
                           data-bs-toggle="modal" data-bs-target={` #${popUpBanner} `}
-                          ref={modalRef}
                           onClick={() => handelupdatebanner(banner)}
 
                         >

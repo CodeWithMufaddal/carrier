@@ -72,3 +72,13 @@
    background: transparent;
    justify-content: flex-end;
 }
+
+.AdminMain {
+   display: grid;
+   grid-template-columns: auto auto;
+   grid-template-rows: 48px auto;
+   text-align: center;
+justify-content: center;
+}
+
+.field{}

@@ -1,10 +1,10 @@
 import React from 'react'
-import { useBanner } from '../../Context/BannerProvider';
+import { useTheme } from '../../Context/ThemeProvider';
 
 const ApplicationPopUp = () => {
 
 
-   const { style } = useBanner();
+   const { style } = useTheme();
    const { Primary, Secondary, Htext, Ntext, invert } = style;
 
    const handleSubmit = (e) => {

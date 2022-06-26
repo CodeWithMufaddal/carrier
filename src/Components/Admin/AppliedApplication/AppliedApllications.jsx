@@ -58,23 +58,23 @@ const AppliedApllications = () => {
                     <div className="whitespace-nowrap f-3">
 
                       <div className="name d-flex align-items-center m-1 mt-0">
-                        <lable className="lable">
+                        <label className="label">
                           <span className={`"text-${Ntext}"`}>Name :</span>
-                        </lable>
+                        </label>
                         <div className="personName ps-2"><span>DaudiBohra mufaddal Lorem, ipsum dolor.</span></div>
                       </div>
 
                       <div className="name d-flex align-items-center m-1">
-                        <lable className="lable">
+                        <label className="label">
                           <span className={`"text-${Ntext}"`}>Mobile :</span>
-                        </lable>
+                        </label>
                         <div className="personName ps-2"><span>6352862921</span></div>
                       </div>
 
                       <div className="name d-flex align-items-center m-1">
-                        <lable className="lable">
+                        <label className="label">
                           <span className={`"text-${Ntext}"`}>CV / Resume :</span>
-                        </lable>
+                        </label>
                         <a href="https://images.unsplash.com/photo-1655492411306-30ec0257c11b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60" download="apple">
                           <button onClick={downloadFile} >cv.pdf</button>
                         </a>
@@ -82,9 +82,9 @@ const AppliedApllications = () => {
                     </div>
                   </div>
                   <div className="w-100 ApplyedApplication__CoverLatter">
-                    <lable>
+                    <label>
                       cover Latter:
-                    </lable>
+                    </label>
                     <span className="rounded  d-flex w-100 border align-items-center text-center">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, consequatur corporis et tempore id delectus molestias explicabo eius fuga aperiam totam, beatae veritatis perferendis quis atque saepe fugit non similique?
                     </span>

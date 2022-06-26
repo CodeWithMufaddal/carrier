@@ -36,13 +36,11 @@ const BannerPopUp = () => {
 
    const handleSubmit = async (e) => {
       e.preventDefault()
-      let add = e.target.id
-      console.log(cbanner, "the value")
-      if (add === 'add ') {
+
+      if (e.target.id === 'add ') {
+
          const create = await createBanner(cbanner)
-         console.log('this is working')
-         if (!create) return console.log("at handle close")
-         // return create
+         if (!create) return console.log("at handle submit in popUpBanner")
          setCbanner({
             title: '',
             discription: '',
@@ -65,31 +63,9 @@ const BannerPopUp = () => {
             ediscription: '',
             eimage: '',
          })
-         // return update
-
-
       } else {
          console.log("something wrong in if else")
-
       }
-
-      // console.log(update)
-
-
-
-      // $('#submit-banner').modal('hide')
-      // console.log(" handle on submit", create)
-
-      // document.getElementById("exampleModal").classList.remove("show", "d-block");
-      // document.querySelectorAll(".modal-backdrop")
-      //    .forEach(el => el.classList.remove("modal-backdrop"));
-      // myModal.addEventListener('shown.bs.modal', function () {
-      //    myInput.focus()
-      //  })
-
-
-
-
    }
 
 
@@ -99,7 +75,7 @@ const BannerPopUp = () => {
    return (
       <>
          {/* <!-- Button trigger modal --> */}
-         <button type="button" className={`btn btn-sm text-${Ntext} mb-3 `} data-bs-toggle="modal" data-bs-target={`#${popUpBanner}`}
+         <button type="button" className={`btn btn-sm text-${Ntext} `} data-bs-toggle="modal" data-bs-target={`#${popUpBanner}`}
             // data-bs-whatever="@mdo"
             onClick={() => { setPopUpBanner('add') }}
          >
@@ -114,7 +90,7 @@ const BannerPopUp = () => {
             <div className="modal-dialog  " >
                <div className={`modal-content bg-${Primary}`}>
                   <div className={`modal-header text-${Htext}`}>
-                     <h5 className="modal-title" id="exampleModalLabel"><span>{popUpBanner}</span> Banner</h5>
+                     <h5 className="modal-title" id="exampleModalLabel"><span>{popUpBanner === 'update' ? 'Update Banner' : 'Add New Banner'}</span></h5>
                      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
 
@@ -157,7 +133,7 @@ const BannerPopUp = () => {
                      </div>
                      <div className="modal-footer">
                         <button type="button" className="btn btn-secondary d-none" ref={refClose} data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id='submit-banner' className={`btn btn-${Htext}  `}  ><span>{popUpBanner}</span> Banner</button>
+                        <button type="submit" id='submit-banner' className={`btn btn-${Htext}  `}  ><span>{popUpBanner === 'update' ? 'Update' : 'Post'}</span></button>
                      </div>
                   </form>
                </div>

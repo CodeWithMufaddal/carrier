@@ -23,6 +23,15 @@
    width: -webkit-fill-available;
 }
 
+.background {
+   display: inline-flex;
+   align-items: center;
+   width: 1200px;
+   height: 400px;
+   justify-content: center;
+   width: -webkit-fill-available;
+}
+
 /* ============================ */
 .Arrow {
    position: absolute;
@@ -79,4 +88,22 @@
 .deactivebtn {
    display: none;
    transition: all 0.1s;
+}
+
+.bannerText {
+   z-index: 1;
+   position: relative;
+   bottom: 30%;
+   /* right: 0; */
+}
+
+.slides::before {
+   content: "";
+   background: rgba(0, 0, 0);
+   opacity: 0.4;
+   position: absolute;
+   width: 100%;
+   overflow: auto;
+   z-index: 0;
+   height: 100%;
 }

@@ -5,8 +5,19 @@ import { ThemeContext } from "./CreateStateContaxt";
 
 const ThemeProvider = ({ children }) => {
 
+   const [progress, setProgress] = useState(0)
+
    let localStyle = localStorage.getItem('style')
-   const [style, setStyle] = useState(localStyle === 'light' ?
+   const [style, setStyle] = useState(localStyle === 'dark' ?
+      {
+         Htext: "success",
+         Ntext: "white",
+         Primary: "dark",
+         Secondary: "secondary",
+         invert: 0,
+         toggle: "dark",
+      }
+      :
       {
          // Default Style is White based 
 
@@ -17,32 +28,12 @@ const ThemeProvider = ({ children }) => {
          invert: 1,
          toggle: "light"
       }
-      :
-      {
-         Htext: "success",
-         Ntext: "white",
-         Primary: "dark",
-         Secondary: "secondary",
-         invert: 0,
-         toggle: "dark",
-      }
 
    )
 
 
    const toggleTheme = () => {
-      if (localStorage.getItem('style') === "light") {
-         setStyle({
-            ...style,
-            Htext: "success",
-            Ntext: "white",
-            Primary: "dark",
-            Secondary: "secondary",
-            invert: 0,
-            toggle: "dark",
-         })
-         localStorage.setItem("style", 'dark')
-      } else {
+      if (localStorage.getItem('style') === "dark") {
          setStyle({
             ...style,
             Htext: "primary",
@@ -53,12 +44,23 @@ const ThemeProvider = ({ children }) => {
             toggle: "light"
          })
          localStorage.setItem("style", 'light')
+      } else {
+         setStyle({
+            ...style,
+            Htext: "success",
+            Ntext: "white",
+            Primary: "dark",
+            Secondary: "secondary",
+            invert: 0,
+            toggle: "dark",
+         })
+         localStorage.setItem("style", 'dark')
       }
    }
 
 
    return (
-      <ThemeContext.Provider value={{ style, setStyle }}>
+      <ThemeContext.Provider value={{ style, setStyle, toggleTheme , progress, setProgress}}>
          {children}
       </ThemeContext.Provider>
    )
