@@ -3,46 +3,50 @@ import '../AdminSection.css'
 import BannerPopUp from './BannerPopUp';
 import { useTheme } from '../../../Context/ThemeProvider';
 import { useBanner } from '../../../Context/BannerProvider';
+import UpdateBanner from './UpdateBanner';
+import storage from '../../../firebase';
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 
 
 const Banner = () => {
-  const { banner, popUpBanner, setPopUpBanner, bid, setBid, ebanner, setEbanner, deleteBanner } = useBanner();
-  const { style } = useTheme();
+  const { banner, popUpBanner, setPopUpBanner, setBid, setEbanner, deleteBanner, ebanner } = useBanner();
+  const { style , setProgress} = useTheme();
   const { Primary, Htext, Ntext, } = style;
 
   const handelupdatebanner = async (banner) => {
-    // console.log(e._id, "update")
-    setPopUpBanner('update')
-    console.log(ebanner, "thisiis banner e")
-
     setEbanner({
       etitle: banner.title,
-      ediscription: banner.discription
+      ediscription: banner.discription,
+      eimage: banner.image
     })
-
-    console.log(ebanner, "thisiis banner a")
-    console.log(banner._id)
     setBid(banner._id)
-    // setBid(e._id)
-
-
-    console.log(bid, "bid")
   }
 
   const Handeldeletebanner = async (e) => {
-    console.log(e._id)
-
+    setProgress(20)
+    let ask = window.confirm("are you sure you want to delete this banner?")
+    if (!ask) {
+      setProgress(100)
+      return ask
+    }
+    // Delete the file
+    setProgress(30)
+    const desertRef = ref(storage, `${e.image}`);
+    
+    setProgress(40)
+    deleteObject(desertRef).then((res) => {
+      console.log(res, "File deleted successfully")
+    }).catch((error) => {
+      console.log(error)
+      setProgress(100)
+    });
+    
+    setProgress(50)
     let dBanner = await deleteBanner(e._id)
     if (!dBanner) return console.log(dBanner, "res at click")
-
+    setProgress(100)
     setBid(e._id)
-
   }
-
-
-
-
-
 
 
   return (
@@ -53,6 +57,7 @@ const Banner = () => {
         <div className="f-1 fw-500"><span>Banner</span></div>
         <div className="m-2">
           <BannerPopUp />
+          <UpdateBanner />
         </div>
       </div>
 
@@ -72,9 +77,8 @@ const Banner = () => {
 
                       <div className="iconToggle m-1 ">
                         <button type="button" className={`trashIcon text-${Ntext}   mx-2 f-5`}
-                          data-bs-toggle="modal" data-bs-target={` #${popUpBanner} `}
+                          data-bs-toggle="modal" data-bs-target={`#update`}
                           onClick={() => handelupdatebanner(banner)}
-
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className=" w-75 bi bi-pencil-square " viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -98,7 +102,7 @@ const Banner = () => {
 
 
                   <div className="w-100 innerCoverBanner">
-                    <span className="rounded bannerbgImg d-flex w-100 h-100 " style={{ background: `url(${img}) center/cover no-repeat` }}>
+                    <span className="rounded bannerbgImg d-flex w-100 h-100 " style={{ background: `url(${banner.image}) center/cover no-repeat` }}>
 
                     </span>
                   </div>
@@ -111,8 +115,6 @@ const Banner = () => {
 
         </div>
       </div>
-
-
 
     </div >
   )

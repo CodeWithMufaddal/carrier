@@ -13,7 +13,7 @@ import GoToTop from './Components/GoToTop';
 import Application from './Components/Application/Application';
 
 // ======= external components =====
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, useParams } from 'react-router-dom'
 import LoadingBar from 'react-top-loading-bar'
 import { useTheme } from './Context/ThemeProvider'
 import Banner from './Components/Admin/Banner/Banner';
@@ -21,11 +21,14 @@ import Openings from './Components/Admin/Openings/Openings';
 import AppliedApllications from './Components/Admin/AppliedApplication/AppliedApllications';
 
 
+
+
+
 const App = () => {
 
   const { style, progress, setProgress } = useTheme();
 
-
+  const { applyFor } = useParams();
   const ref = React.useRef(null);
 
 
@@ -43,7 +46,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<ProtectedRoute>  <Main />  </ProtectedRoute>} />
-          <Route path="/Application" element={<ProtectedRoute>  <Application />  </ProtectedRoute>} />
+          <Route path={`/Application/:jobid`} element={<ProtectedRoute>  <Application  />  </ProtectedRoute>} />
 
           {/* Special For Admin */}
           <Route path="/admin" element={

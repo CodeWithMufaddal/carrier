@@ -15,7 +15,6 @@ const Main = ({ children }) => {
    const { style } = useTheme();
    const { Primary, Secondary, Htext, Ntext, invert } = style;
 
-   console.log(container)
 
    return (
 

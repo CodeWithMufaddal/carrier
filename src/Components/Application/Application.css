@@ -2,3 +2,7 @@
 .JobDescriptionPoints li {
    list-style: disc;
 }
+
+.textarea{
+   height: 150px;   
+}

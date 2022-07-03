@@ -3,97 +3,111 @@ import { useNavigate } from 'react-router-dom'
 import { useBanner } from '../../../Context/BannerProvider';
 import { useTheme } from '../../../Context/ThemeProvider';
 import storage from '../../../firebase';
-import { ref, uploadBytesResumable, getDownloadURL, listAll } from "firebase/storage";
-// import FileInput from '../../FileInput';
-// import styles from './styles.module.css';
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import './Banner.css'
-import { async } from '@firebase/util';
 
-const BannerPopUp = () => {
+const UpdaatePopUp = () => {
    const host = process.env.REACT_APP_BACKEND_HOST
    const navigation = useNavigate()
    const { style } = useTheme();
    const { Primary, Secondary, Htext, Ntext, } = style;
-   const { createBanner, updateBanner, popUpBanner, setPopUpBanner, ebanner, setEbanner, cbanner, setCbanner, bannerImage, setBannerImage, ebannerImage, setEBannerImage, storeImg, inputRef, iprogress, setIprogress, iprogressShow, setIprogressShow } = useBanner();
+   const { createBanner, updateBanner, popUpBanner, setPopUpBanner, ebanner, setEbanner, cbanner, banner, setCbanner, einputRef, iprogress, setIprogress, iprogressShow, setIprogressShow, bid } = useBanner();
    const refClose = useRef(null)
    const [loading, setLoading] = useState(true)
 
    // On Change Handelers 
    const handleInputState = (name, value) => {
-      setCbanner((prev) => ({ ...cbanner, [name]: value }))
-   }
 
+      setEbanner((prev) => ({ ...ebanner, [name]: value }))
+
+   }
    const handleonChange = (e) => {
-      setCbanner({ ...cbanner, [e.target.name]: e.target.value })
+      setEbanner({ ...ebanner, [e.target.name]: e.target.value })
    }
-
 
    // Submit Button
    const handleSubmit = async (e) => {
       e.preventDefault()
       setLoading(false)
       setIprogressShow(true);
-      const fileName = new Date().getTime() + cbanner.image.name;
-      const storageRef = ref(storage, `/BannerImg/${fileName}`)
-      const uploadTask = uploadBytesResumable(storageRef, cbanner.image);
-      uploadTask.on('state_changed', (snapshot) => {
-         const uploaded = Math.floor(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-         )
-         setIprogress(uploaded)
-      }, (error) => { console.log(error) },
+      if (typeof ebanner.eimage === 'object') {
 
-         async () => await getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            handleInputState('image', downloadURL)
-            const response = await createBanner(cbanner, downloadURL)
-            console.log(response, 'at handele submit add')
-            if (!response.success) return console.log("at handle submit in popUpBanner")
-            setCbanner({ title: '', discription: '', image: "" })
-            setTimeout(() => {
+         banner.map(b => {
+            if (b._id === bid) {
+               console.log(b.image, "Please")
 
-            }, 500);
-            refClose.current.click()
-            setLoading(true)
-            setIprogress(0)
-            setIprogressShow(false)
-         }),
-      )
+               const desertRef = ref(storage, `${b.image}`);
+
+               // Delete the file
+               deleteObject(desertRef).then((res) => {
+                  console.log(res, "File deleted successfully")
+               }).catch((error) => {
+                  console.log(error)
+               });
+
+
+               const fileName = new Date().getTime() + ebanner.eimage.name;
+               const storageRef = ref(storage, `/BannerImg/${fileName}`)
+               const uploadTask = uploadBytesResumable(storageRef, ebanner.eimage);
+               uploadTask.on('state_changed', (snapshot) => {
+                  const uploaded = Math.floor(
+                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                  )
+                  setIprogress(uploaded)
+               }, (error) => { console.log(error) },
+
+                  async () => await getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                     handleInputState('eimage', downloadURL)
+                     const update = await updateBanner(ebanner, downloadURL)
+                     if (!update) return console.log("at update problem")
+                     setEbanner({ etitle: '', ediscription: '', eimage: '' })
+                     setTimeout(() => { }, 500);
+                     refClose.current.click()
+                     setLoading(true)
+                     setIprogress(0)
+                     setIprogressShow(false)
+                  }),
+               )
+            }
+         });
+         return 
+      }
+
+
+      const update = await updateBanner(ebanner, ebanner.eimage)
+      if (!update) return console.log("at update problem")
+      setEbanner({ etitle: '', ediscription: '', eimage: '' })
+      setTimeout(() => { }, 500);
+      refClose.current.click()
+      setLoading(true)
+      setIprogress(0)
+      setIprogressShow(false)
 
 
    }
 
 
-
-
    return (
       <>
-         <button type="button" className={`btn btn-sm text-${Ntext} `} data-bs-toggle="modal" data-bs-target={`#add`}
-         >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-plus-square" viewBox="0 0 16 16">
-               <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-               <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg>
-         </button>
-
-         <div className="modal fade " id={`add`} tabIndex="-1" aria-labelledby={`addLabel`} aria-hidden="true"  >
+         <div className="modal fade " id={`update`} tabIndex="-1" aria-labelledby={`updateLabel`} aria-hidden="true"  >
             <div className="modal-dialog modal-lg " >
                <div className={`modal-content bg-${Primary}`}>
                   <div className={`modal-header text-${Htext}`}>
-                     <h5 className="modal-title" id="exampleModalLabel"><span>Add New Banner</span></h5>
+                     <h5 className="modal-title" id="exampleModalLabel"><span>Update Banner</span></h5>
                      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
 
 
 
-                  <form onSubmit={handleSubmit} id={`add`}>
+                  <form onSubmit={handleSubmit} id={`update`}>
                      <div className={`modal-body text-${Ntext}`}>
 
                         <div className="field">
                            <div className="lableDiv">
                               <label htmlFor="title" className="label">Title</label>
                            </div>
-                           <input type="text" className={`w-100 bg-${Secondary} border border-${Ntext} p-1`} name='title'
-                              value={cbanner.title}
+                           <input type="text" className={`w-100 bg-${Secondary} border border-${Ntext} p-1`} name="etitle"
+                              value={ebanner?.etitle}
                               onChange={handleonChange} required />
                         </div>
 
@@ -101,8 +115,8 @@ const BannerPopUp = () => {
                            <div className="lableDiv">
                               <label htmlFor="discription" className="label">discription</label>
                            </div>
-                           <textarea type="text" className={`w-100 bg-${Secondary} border border-${Ntext} p-1 resize-none `} name='discription' onChange={handleonChange}
-                              value={cbanner.discription} >
+                           <textarea type="text" className={`w-100 bg-${Secondary} border border-${Ntext} p-1 resize-none `} name="ediscription" onChange={handleonChange}
+                              value={ebanner?.ediscription} >
                            </textarea>
                         </div>
 
@@ -113,19 +127,20 @@ const BannerPopUp = () => {
                            <div className="border w-100 p-1 d-flex  flex-column">
 
                               <div className="mx-2 d-flex align-items-center justify-content-start  ">
-                                 <input accept="image/*" className={`w-100 bg-${Secondary} border border-${Ntext} p-1 d-none  `} name='image'
+                                 <input accept="image/*" className={`w-100 bg-${Secondary} border border-${Ntext} p-1 d-none  `} name="eimage"
                                     type='file'
-                                    ref={inputRef}
-                                    onChange={(e) => handleInputState('image', e.currentTarget.files[0])}
+                                    ref={einputRef}
+                                    onChange={(e) => handleInputState('eimage', e.currentTarget.files[0])}
                                  />
                                  <button
                                     type="button"
                                     className={`btn btn-${Htext} mx-2`}
-                                    onClick={() => inputRef.current.click()}>
+                                    onClick={() => einputRef.current.click()}>
                                     Upload
                                  </button>
+
                                  {iprogressShow && iprogress < 100 && (
-                                    <div className={``}>
+                                    <div className={`mx-1`}>
                                        <span>{iprogress}%</span>
                                     </div>
                                  )}
@@ -138,11 +153,12 @@ const BannerPopUp = () => {
                                     </div>
                                  )}
                               </div>
-                              {cbanner.image && (
+                              {ebanner.eimage && (
                                  <div className="m-1 mt-2">
                                     <div className="w-100 h-100  position-relative overflow-hidden " >
                                        <img
-                                          src={typeof cbanner.image === "string" ? cbanner.image : URL.createObjectURL(cbanner.image)}
+                                          src={typeof ebanner.eimage === "string" ? ebanner.eimage : URL.createObjectURL(ebanner.eimage)}
+                                          // value={`${popUpBanner === 'add' ? cbanner.image : ebanner?.eimage}`}
                                           alt="file"
                                           className={`w-100 h-100`}
                                        />
@@ -151,10 +167,10 @@ const BannerPopUp = () => {
                                        <div className={`position-absolute top-0 text-${Primary} `} style={{ left: '20%' }}>
 
                                           <div className={` f-1 fw-bold`}>
-                                             {cbanner.title}
+                                             {ebanner.etitle}
                                           </div>
                                           <div className={` f-2 fw-500`}>
-                                             {cbanner.discription}
+                                             {ebanner.ediscription}
                                           </div>
                                        </div>
                                     </div>
@@ -169,7 +185,7 @@ const BannerPopUp = () => {
                      </div>
                      <div className="modal-footer">
                         <button type="button" className="btn btn-secondary d-none" ref={refClose} data-bs-dismiss="modal">Close</button>
-                        <button type="submit" id='submit-banner' className={`btn btn-${Htext}  `} disabled={loading && typeof cbanner.image === 'object' && cbanner.title.length > 2 && cbanner.discription.length > 2 ? false : true}  ><span>{popUpBanner === 'update' ? 'Update' : 'Post'}</span></button>
+                        <button type="submit" id='submit-banner' className={`btn btn-${Htext}  `} ><span>Update</span></button>
                      </div>
                   </form>
                </div>
@@ -179,4 +195,4 @@ const BannerPopUp = () => {
    )
 }
 
-export default BannerPopUp
+export default UpdaatePopUp

@@ -71,8 +71,6 @@ const Slider = () => {
    return (
       <div className={`w-100  text-white`}>
          <div className={`  page-center `}>
-            {/* <div className={`w-100 bg-${Primary} text-${Ntext}`}>
-         <div className={` bg-${Secondary} page-center `}> */}
 
             <div className={`slider `}>
                <div className="slideShow" style={{ transform: `translate3d(-${index * 100}%, 0 , 0)` }}>
@@ -80,17 +78,11 @@ const Slider = () => {
                      return (
                         <div key={i} className="slides flex-row-reverse">
                            <div className="background"
-                              style={{ background: `url(${img}) center / cover` }}
+                              style={{ background: `url(${banner.image}) center / cover` }}
                            >
                               <div className="bannerText text-center">
                                  <div className="bannerTitle fs-1 fw-500 ">
                                     {banner.title}
-                                    {/* <span className={`text-danger`}>
-                                       {banner.title.slice(0, 1)}
-                                    </span>
-                                    <span>
-                                       {banner.title.slice(1 , banner.title.length)}
-                                    </span> */}
                                  </div>
                                  <div className="bannerDiscription p-2 f-1">
                                     {banner.discription}

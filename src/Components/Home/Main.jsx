@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useOpening } from '../../Context/OpeningProvider'
 import { useTheme } from '../../Context/ThemeProvider'
 import JobOpenings from './JobOpenings'
 import Slider from './Slider'
@@ -7,6 +8,7 @@ const Main = () => {
 
    const { style } = useTheme();
    const { Primary, Secondary, Htext, Ntext, invert } = style;
+   const { openings } = useOpening();
 
 
 
@@ -18,7 +20,6 @@ const Main = () => {
             </div>
             <div className="py-2 my-3">
                <h1 className={`mx-5  text-decoration-underline  text-${Ntext}`}> <span>Job Openings</span></h1>
-               <JobOpenings />
                <JobOpenings />
             </div>
          </div>

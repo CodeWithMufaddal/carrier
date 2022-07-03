@@ -1,14 +1,16 @@
 import React from 'react'
-import OpeningPopUp from './OpeningPopUp'
+import PublishPopUp from './PublishPopUp'
 import { useTheme } from '../../../Context/ThemeProvider';
 import { useOpening } from '../../../Context/OpeningProvider';
+import UpdatePopUp from './UpdatePopUp';
+import { Link } from 'react-router-dom';
 
 const Openings = () => {
 
 
 
   const { style } = useTheme();
-  const { popUpOpening, opening, setOpening, setPopUpOpening, handelupdateOpening ,deleteOpenings} = useOpening();
+  const { popUpOpening, opening, setOpening, setPopUpOpening, handelupdateOpening, deleteOpenings } = useOpening();
   const { Primary, Htext, Ntext } = style;
 
   return (
@@ -16,7 +18,8 @@ const Openings = () => {
       <div className={`section bg-${Primary}  d-flex align-items-center justify-content-between px-3 border-bottom`} style={{ height: '43.55px' }}>
         <div className="f-1 fw-500"><span>Openings</span></div>
         <div className="m-2">
-          <OpeningPopUp />
+          <PublishPopUp />
+          <UpdatePopUp />
         </div>
       </div>
 
@@ -24,19 +27,20 @@ const Openings = () => {
       <div className="tabs">
         <div className={`mb-4  `}>
           {opening.map((opening, i) => {
-
             return (
+
               <div key={i} className={` bg-${Primary} border m-3 position-relative rounded`} >
                 <div className=" w-100 rounded  d-flex flex-lg-nowrap flex-wrap-reverse "  >
                   <div className=" d-flex flex-column w-100 h-100 align-item-strach ">
-                    <div className={` text-${Htext}  f-1 fw-500 px-2 d-flex justify-content-between align-items-end my-1 `}>
+                    <div className={` text-${Htext}  f-1-5 fw-500 px-2 d-flex justify-content-between align-items-end my-1 `}>
                       <div className="BannerTitle">
-                        <span>React.js</span>
+                        <span>{opening.title}</span>
                       </div>
 
                       <div className="iconToggle m-1 bg-none  ">
                         <button type="button" className={`trashIcon text-${Ntext}   mx-2 f-5`}
-                          data-bs-toggle="modal" data-bs-target={` #${popUpOpening} `}
+                          data-bs-toggle="modal" data-bs-target={`#updateopening`}
+
                           onClick={() => handelupdateOpening(opening)}
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-pencil-square " viewBox="0 0 16 16">
@@ -53,21 +57,42 @@ const Openings = () => {
                       </div>
                     </div>
 
-                    <section className="h-100 d-flex p-1 mt-4">
-                      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia cum, fugit labore rem quo nisi ad dolor quaerat nostrum at consequuntur, perspiciatis quidem a necessitatibus aspernatur aperiam asperiores! Porro, cum.
+                    <section className="h-100 d-flex px-1  flex-column  justify-content-center">
+
+                      <div className=" d-flex flex-column ">
+                        <div className="d-flex p-1  align-items-center">
+                          <label htmlFor="salary" className="fw-500 f-2 px-1 whitespace-nowrap ">
+                            Salary :
+                          </label>
+                          <div className="f-3"><span>{opening.salary}</span></div>
+                        </div>
+
+                        <div className="d-flex p-1 align-items-center">
+                          <label htmlFor="experience" className="fw-500  f-2 px-1 whitespace-nowrap">
+                            Experience :
+                          </label>
+                          <div className="f-3"><span>{opening.experience}</span></div>
+                        </div>
+
+                      </div>
+
+                      <Link to={`/Application/${opening._id}`} className={`link-${Ntext} text-decoration-none`} >
+                        <div className="d-flex p-1 align-items-start  ">
+                          <label htmlFor="summury" className="fw-500 f-2 px-1 whitespace-nowrap" >
+                            Summury :
+                          </label>
+                          <div className="f-3" name="summury" ><span>{opening.description.split(' ').slice(0, 20).join(' ')}...</span></div>
+                        </div>
+                      </Link>
                     </section>
-
                   </div>
-
-
-
                 </div>
               </div>
             )
           })}
 
         </div>
-      </div>
+      </div >
 
 
 
