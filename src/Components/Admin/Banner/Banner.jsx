@@ -10,12 +10,6 @@ const Banner = () => {
   const { style } = useTheme();
   const { Primary, Htext, Ntext, } = style;
 
-
-  const img = [
-    "https://img.freepik.com/free-vector/flat-sale-banner-with-photo_23-2149026968.jpg?w=1380&t=st=1655210897~exp=1655211497~hmac=75354c08c529e08815eb082aa3236bd2bca96b7eeaf9f13d927e46f9374d4932",
-    "https://img.freepik.com/free-vector/big-diwali-sale-banner-with-crackers-decoration_1017-21252.jpg?t=st=1655212313~exp=1655212913~hmac=625902359b6947f82715a727b5c88c30172de36d9d76db29c73322de833843d5&w=1380", "https://img.freepik.com/free-vector/black-friday-sale-banner-torn-paper-style_1017-34718.jpg?t=st=1655211097~exp=1655211697~hmac=eebf1478aec1d488ba863d9fb2d6af0272d135962df8a38506ee6a32b108c0de&w=1380"
-  ]
-
   const handelupdatebanner = async (banner) => {
     // console.log(e._id, "update")
     setPopUpBanner('update')
