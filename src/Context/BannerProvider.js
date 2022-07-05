@@ -10,8 +10,8 @@ const BannerProvider = ({ children }) => {
    const host = process.env.REACT_APP_BACKEND_HOST
 
    // For file Upload
-   const inputRef = useRef();
    const einputRef = useRef();
+   const inputRef = useRef();
    const [iprogress, setIprogress] = useState(0)
    const [iprogressShow, setIprogressShow] = useState(false)
 

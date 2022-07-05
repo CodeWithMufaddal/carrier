@@ -4,10 +4,8 @@ import { useBanner } from '../../../Context/BannerProvider';
 import { useTheme } from '../../../Context/ThemeProvider';
 import storage from '../../../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, listAll } from "firebase/storage";
-// import FileInput from '../../FileInput';
-// import styles from './styles.module.css';
+
 import './Banner.css'
-import { async } from '@firebase/util';
 
 const BannerPopUp = () => {
    const host = process.env.REACT_APP_BACKEND_HOST
@@ -80,7 +78,7 @@ const BannerPopUp = () => {
                <div className={`modal-content bg-${Primary}`}>
                   <div className={`modal-header text-${Htext}`}>
                      <h5 className="modal-title" id="exampleModalLabel"><span>Add New Banner</span></h5>
-                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     <button type="button" className={`btn-close bg-${Secondary}`} data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
 
 
@@ -92,7 +90,7 @@ const BannerPopUp = () => {
                            <div className="lableDiv">
                               <label htmlFor="title" className="label">Title</label>
                            </div>
-                           <input type="text" className={`w-100 bg-${Secondary} border border-${Ntext} p-1`} name='title'
+                           <input type="text" className={`w-100 bg-${Primary} border border-${Ntext} text-${Ntext} p-1`} name='title'
                               value={cbanner.title}
                               onChange={handleonChange} required />
                         </div>
@@ -101,7 +99,7 @@ const BannerPopUp = () => {
                            <div className="lableDiv">
                               <label htmlFor="discription" className="label">discription</label>
                            </div>
-                           <textarea type="text" className={`w-100 bg-${Secondary} border border-${Ntext} p-1 resize-none `} name='discription' onChange={handleonChange}
+                           <textarea type="text" className={`w-100 bg-${Primary} border border-${Ntext} text-${Ntext} p-1 resize-none `} name='discription' onChange={handleonChange}
                               value={cbanner.discription} >
                            </textarea>
                         </div>
@@ -113,7 +111,7 @@ const BannerPopUp = () => {
                            <div className="border w-100 p-1 d-flex  flex-column">
 
                               <div className="mx-2 d-flex align-items-center justify-content-start  ">
-                                 <input accept="image/*" className={`w-100 bg-${Secondary} border border-${Ntext} p-1 d-none  `} name='image'
+                                 <input accept="image/*" className={`w-100 bg-${Primary} border border-${Ntext} text-${Ntext}  p-1 d-none  `} name='image'
                                     type='file'
                                     ref={inputRef}
                                     onChange={(e) => handleInputState('image', e.currentTarget.files[0])}
@@ -148,12 +146,12 @@ const BannerPopUp = () => {
                                        />
                                        <div className="progressMasking" style={{ transform: `translateX(${iprogress * 7.5}px)` }}   ></div>
 
-                                       <div className={`position-absolute top-0 text-${Primary} `} style={{ left: '20%' }}>
+                                       <div className={`position-absolute top-0 text-white `} style={{ left: '20%' }}>
 
-                                          <div className={` f-1 fw-bold`}>
+                                          <div className={` f-1 fw-bold `}>
                                              {cbanner.title}
                                           </div>
-                                          <div className={` f-2 fw-500`}>
+                                          <div className={` f-2 fw-500 `}>
                                              {cbanner.discription}
                                           </div>
                                        </div>

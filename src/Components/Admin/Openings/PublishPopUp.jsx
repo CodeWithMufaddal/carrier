@@ -188,7 +188,7 @@ const PublishPopUp = () => {
                                     />
 
                                     <div className="mx-2 d-flex">
-                                       <button type="button" className={`btn border-0 btn-sm text-${Ntext} btn-close`} onClick={() => setJobResponsibility(() => jobResponsibility.filter(e =>  jobDescription.length > 1 ? e !== JR : true))}>
+                                       <button type="button" className={`btn border-0 btn-sm text-${Ntext} btn-close`} onClick={() => setJobResponsibility(() => jobResponsibility.filter(e =>  jobResponsibility.length > 1 ? e !== JR : true))}>
                                        </button>
                                     </div>
 

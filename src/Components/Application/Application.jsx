@@ -51,6 +51,16 @@ const Application = () => {
                                           </div>
                                        </div>
                                     </div>
+
+                                    <div className={` text-${Ntext}`}>
+                                       <div className="fw-500 d-flex  f-3 ">
+                                          <label className="px-1 whitespace-nowrap">Summury : </label>
+                                          <div className=" px-1 ">
+                                             <span>{opening.description}</span>
+                                          </div>
+                                       </div>
+                                    </div>
+
                                  </div>
                               </div>
                            </div>

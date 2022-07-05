@@ -5,10 +5,12 @@ import CsvDownload from 'react-json-to-csv'
 
 const AppliedApllications = () => {
   const [time, setTime] = useState(0)
-  const [Sortby, setSortby] = useState('Most relevant')
-  const { applications, setApplications } = useAppliedApplication();
+  const { applications, setApplications, handleSortBy, sortby, setSortby, fetchallapplication } = useAppliedApplication();
   const { style } = useTheme();
   const { Primary, Secondary, Htext, Ntext, invert } = style;
+
+
+
 
   return (
     <div className={` w-100  d-flex flex-column  text-${Ntext}`}>
@@ -21,13 +23,13 @@ const AppliedApllications = () => {
           <div className="dropdown">
 
             <button className="btn  " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Sort by: {Sortby} 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-down" viewBox="0 0 16 16">
+              Sort by: {sortby} 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-down" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
               </svg>
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a className="dropdown-item" onClick={(e) => setSortby('Most relevant')} href="#">Most relevant</a></li>
-              <li><a className="dropdown-item" onClick={(e) => setSortby('Most recent')} href="#">Most recent</a></li>
+              <li><button type="button" className="dropdown-item" onClick={fetchallapplication}>Most relevant</button></li>
+              <li><button type="button" className="btn dropdown-item" onClick={handleSortBy}>Most recent</button></li>
             </ul>
           </div>
         </div>
@@ -90,6 +92,13 @@ const AppliedApllications = () => {
                           <div className="personName ps-2"><span>{applications.name}</span></div>
                         </div>
 
+                        <div className="name d-flex align-items-center m-1 mt-0">
+                          <label className="label">
+                            <span className={`"text-${Ntext}"`}>Email :</span>
+                          </label>
+                          <div className="personName ps-2"><span>{applications.email}</span></div>
+                        </div>
+
                         <div className="name d-flex align-items-center m-1">
                           <label className="label">
                             <span className={`"text-${Ntext}"`}>Mobile :</span>
@@ -101,8 +110,9 @@ const AppliedApllications = () => {
                           <label className="label">
                             <span className={`"text-${Ntext}"`}>CV / Resume :</span>
                           </label>
-                          <a href="https://images.unsplash.com/photo-1655492411306-30ec0257c11b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60" >
-                            <button >cv.pdf</button>
+
+                          <a href={applications.cv} target="_blank" className="">
+                            <button type="button" className={` btn btn-outline-primary py-0 mx-1 `} > cv.pdf</button>
                           </a>
                         </div>
                       </div>
@@ -128,16 +138,19 @@ const AppliedApllications = () => {
               )
             })
             : (
-              <div className='container  position-absolute top-50 start-50 '>
+              <div className='container  position-absolute top-50   d-flex align-items-center' style={{left: "40%"}}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-exclamation-circle me-3" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                </svg>
                 <span className="fw-500 f-1">
-                  No Application To Show
+                  No One Has Applied Yet
                 </span>
-
               </div>
             )
           }
 
-          <div className={`position-sticky p-1 fw-500 bottom-0 bg-${Primary} w-100`}>
+          {applications.length !== 0 && <div className={`position-sticky p-1 fw-500 bottom-0 bg-${Primary} w-100`}>
             <div className={`btn btn-${Htext} fw-500 mx-2`}>
               <CsvDownload
                 style={{
@@ -151,7 +164,7 @@ const AppliedApllications = () => {
                 Download
               </CsvDownload>
             </div>
-          </div>
+          </div>}
 
 
         </div>

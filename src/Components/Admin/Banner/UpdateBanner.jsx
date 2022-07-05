@@ -164,12 +164,12 @@ const UpdaatePopUp = () => {
                                        />
                                        <div className="progressMasking" style={{ transform: `translateX(${iprogress * 7.5}px)` }}   ></div>
 
-                                       <div className={`position-absolute top-0 text-${Primary} `} style={{ left: '20%' }}>
+                                       <div className={`position-absolute top-0 text-white `} style={{ left: '20%' }}>
 
-                                          <div className={` f-1 fw-bold`}>
+                                          <div className={` f-1 fw-bold `}>
                                              {ebanner.etitle}
                                           </div>
-                                          <div className={` f-2 fw-500`}>
+                                          <div className={` f-2 fw-500 `}>
                                              {ebanner.ediscription}
                                           </div>
                                        </div>
