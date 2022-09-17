@@ -205,6 +205,7 @@ const UpdatePopUp = () => {
                            <div className="lableDiv">
                               <label htmlFor="mustToHave" className="label"> Must To Have Points:</label>
                            </div>
+                           {console.log(eopening.emustToHave)}
                            {eopening.emustToHave.map((MTH, i) => {
                               return (
                                  <div key={i} className="w-75 my-2  d-flex align-items-center">

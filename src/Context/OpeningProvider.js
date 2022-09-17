@@ -41,16 +41,22 @@ const OpeningProvider = ({ children }) => {
    const [popUpOpening, setPopUpOpening] = useState()
 
    const handelupdateOpening = (opening) => {
+      let jobDescription = opening.jobDescription.length <= 0 ? [{ JD: '' }] : opening.jobDescription
+      let jobResponsibility = opening.jobResponsibility.length <= 0 ? [{ JR: '' }] : opening.jobResponsibility
+      let mustToHave = opening.mustToHave.length <= 0 ? [{ MTH: '' }] : opening.mustToHave
+
+      console.log(opening.mustToHave.length <= 0 ? [{ MTH: '' }] : opening.mustToHave, 'consolelog')
       setEopening({
          etitle: opening.title,
          esalary: opening.salary,
          eexperience: opening.experience,
          edescription: opening.description,
-         ejobDescription: opening.jobDescription,
-         ejobResponsibility: opening.jobResponsibility,
-         emustToHave: opening.mustToHave
+         ejobDescription: jobDescription,
+         ejobResponsibility: jobResponsibility,
+         emustToHave: mustToHave
       })
       setOid(opening._id)
+
 
    }
 
@@ -76,7 +82,6 @@ const OpeningProvider = ({ children }) => {
    const createOpenings = async () => {
       setProgress(30)
       const data = copening
-      console.log(data)
       setProgress(50)
       let response = await fetch(`${host}/api/opening/createopening`, {
          method: 'POST',
@@ -121,7 +126,6 @@ const OpeningProvider = ({ children }) => {
       }
 
       setProgress(50)
-      console.log(oid)
       let response = await fetch(`${host}/api/opening/updateopening/${oid}`, {
          method: 'PUT',
          headers: {
@@ -132,7 +136,6 @@ const OpeningProvider = ({ children }) => {
       })
       setProgress(70)
       response = await response.json()
-      console.log(response)
       if (!response.success) return alert('Opening  not found ')
       setProgress(90)
 
@@ -168,7 +171,6 @@ const OpeningProvider = ({ children }) => {
       })
       setProgress(70)
       response = await response.json()
-      console.log(response, 'this is a json response')
       if (!response.success) {
          alert('can not delete Opening  not found ')
          setProgress(100)

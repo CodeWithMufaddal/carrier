@@ -46,7 +46,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<ProtectedRoute>  <Main />  </ProtectedRoute>} />
-          <Route path={`/Application/:jobid`} element={<ProtectedRoute>  <Application  />  </ProtectedRoute>} />
+          <Route path={`/Application/:jobid`} element={<ProtectedRoute>  <Application />  </ProtectedRoute>} />
 
           {/* Special For Admin */}
           <Route path="/admin" element={
@@ -82,7 +82,9 @@ const App = () => {
 
           <Route path="/admin/login" element={
             // <ProtectedRoute>
-            <Login />
+            <div className=" p-3 container  " style={{height: '90%'}}>
+              <Login />
+            </div>
             // </ProtectedRoute>
           } />
         </Routes>

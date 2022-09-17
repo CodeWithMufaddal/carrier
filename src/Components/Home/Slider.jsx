@@ -10,6 +10,7 @@ const Slider = () => {
    const { banner } = useBanner();
    const { style } = useTheme()
    const { Primary, Secondary, Htext, Ntext, invert } = style;
+   const [hover, setHover] = useState()
 
    const slider = useRef(null)
    const [index, setIndex] = useState(0)
@@ -19,7 +20,9 @@ const Slider = () => {
          if (index === banner.length - 1 || banner.length === 0) {
             setIndex(0)
          } else {
-            setIndex(index + 1)
+            if (!hover) {
+               setIndex(index + 1)
+            } 
          }
       }, 3000)
 
@@ -60,14 +63,14 @@ const Slider = () => {
    return (
       <>
          {<div className={`w-100  text-white`}>
-            <div className={`  page-center `}>
+            <div className={`  page-center  `}>
 
-               <div className={`slider `}>
-                  <div className="slideShow" style={{ transform: `translate3d(-${index * 100}%, 0 , 0)` }}>
+               <div className={`slider bannerSize `}>
+                  <div className="slideShow h-100" style={{ transform: `translate3d(-${index * 100}%, 0 , 0)` }}>
                      {banner.map((banner, i) => {
                         return (
-                           <div key={i} className="slides flex-row-reverse">
-                              <div className="background"
+                           <div key={i} className="slides flex-row-reverse bannerSize position-relative" >
+                              <div className="background  position-absolute"
                                  style={{ background: `url(${banner.image}) center / cover` }}
                               >
                                  <div className="bannerText text-center">

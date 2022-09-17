@@ -7,28 +7,66 @@ const AppliedApllications = () => {
   const [time, setTime] = useState(0)
   const { applications, setApplications, handleSortBy, sortby, setSortby, fetchallapplication } = useAppliedApplication();
   const { style } = useTheme();
-  const { Primary, Secondary, Htext, Ntext, invert } = style;
-
-
+  const { Primary, Secondary, Htext, Ntext, invert, muted } = style;
+  const [app_title, setApp_title] = useState()
 
 
   return (
     <div className={` w-100  d-flex flex-column  text-${Ntext}`}>
       <div className={`section bg-${Primary}  d-flex align-items-center justify-content-between py-1 px-3 border-bottom`}>
         <div className="f-1-5 fw-500"><span>View Application</span></div>
+        <div className={`f-3 fw-500  `}>
+          <span >{!app_title ? applications.length : applications.filter((applications) => applications.title === app_title).length} </span>
+          <span>Application</span></div>
       </div>
       <div className={` section bg-${Primary}  d-flex align-items-center justify-content-between py-1 px-3  border-bottom`}>
-        <div className="f-3 fw-500 mx-2"><span>filter :</span></div>
+
         <div className="f-3 fw-500 mx-2">
           <div className="dropdown">
+            <button className={`btn text-${Ntext}`} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-funnel" viewBox="0 0 16 16">
+                <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z" />
+              </svg>
+            </button>
 
-            <button className="btn  " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Sort by: {sortby} 	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-down" viewBox="0 0 16 16">
+            <ul className="dropdown-menu text-white" style={{ width: 'calc(25vw + 25rem ) ', position: 'absolute', height: '' }} aria-labelledby="dropdownMenuButton1">
+              <li className="w-100 ">
+                <div className="m-1">
+                  <div className={`mx-2  text-${Ntext} `}><span>By Title :</span></div>
+                  <div className="">
+                    {
+                      applications.filter((obj, index, self) => index === self.findIndex(el => el["title"] === obj["title"]))
+                        .map((application_title, i) => {
+                          return (
+                            <button key={i} className={` m-2 btn btn-primary `} onClick={(e) => {
+
+                              setApp_title(application_title.title)
+                              console.log(application_title.title)
+                            }}>
+                              <div className="">
+                                {application_title.title}
+                              </div>
+                            </button>
+                          )
+                        })}
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div className="f-3 fw-500 mx-2">
+          <div className="dropdown">
+            <button className={`btn text-${Ntext}`} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" >
+              Sort by: {sortby}
+              <svg xmlns="http://www.w3.org/2000/svg" id="sortArrow" width="16" height="16" fill="currentColor" className="bi bi-chevron-down" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
               </svg>
             </button>
-            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><button type="button" className="dropdown-item" onClick={fetchallapplication}>Most relevant</button></li>
+            <ul className="dropdown-menu text-white" aria-labelledby="dropdownMenuButton1">
+              <li><button type="button" className=" dropdown-item" onClick={fetchallapplication}>Most relevant</button></li>
               <li><button type="button" className="btn dropdown-item" onClick={handleSortBy}>Most recent</button></li>
             </ul>
           </div>
@@ -38,8 +76,8 @@ const AppliedApllications = () => {
 
       <div className="tabs">
         <div className={`mb-4  `}>
-          {applications.length !== 0 ?
-            applications.map((applications, i) => {
+          {applications.length !== 0 ? (!app_title ? applications : applications.filter((applications) => applications.title === app_title))
+            .map((applications, i) => {
 
               let publishDate = new Date(applications.date)
               let today = new Date()
@@ -130,15 +168,18 @@ const AppliedApllications = () => {
 
                   </div>
                   <div className={` d-flex w-100 justify-content-end  px-3 text-secondary`}>
+                    <span className="mx-2">
+                      {publishDate.toLocaleString()}
+                    </span>
                     <span>
-                      {longago}
+                      ( {longago} )
                     </span>
                   </div>
                 </div>
               )
             })
             : (
-              <div className='container  position-absolute top-50   d-flex align-items-center' style={{left: "40%"}}>
+              <div className='container  position-absolute top-50   d-flex align-items-center' style={{ left: "40%" }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-exclamation-circle me-3" viewBox="0 0 16 16">
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                   <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
@@ -158,8 +199,8 @@ const AppliedApllications = () => {
                   font: 'inherit',
                   color: 'inherit',
                 }}
-                data={applications}
-                filename="AllApplications.csv"
+                data={!app_title ? applications : applications.filter((applications) => applications.title === app_title)}
+                filename={`${!app_title ? 'AllApplications.csv' : `${app_title}.csv`}`}
               >
                 Download
               </CsvDownload>

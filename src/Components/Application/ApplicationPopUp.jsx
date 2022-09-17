@@ -64,9 +64,9 @@ const ApplicationPopUp = ({ opening }) => {
                cv: '',
                cLeter: ''
             }))
-            setTimeout(() => {
+            // setTimeout(() => {
 
-            }, 2000);
+            // }, 2000);
             setProgress(100)
             refClose.current.click()
             setLoading(true)

@@ -10,13 +10,13 @@ const Navbar = () => {
   const sectionPath = location.pathname === '/admin/banner' || location.pathname === '/admin/opening' || location.pathname === '/admin/appliedApplication';
 
   return (
-    <div className={`navHight w-100 bg-${Primary} border-bottom  sticky-top  `} >
+    <div className={`navHight w-100 bg-${Primary} border-bottom  fixed-top d-flex align-items-center  `} style={{height: '70px' }} >
 
-      <div className={` bg-${Secondary} page-center  `}>
+      <div className={` bg-${Secondary} page-center  h-auto `}>
 
         <nav className={`navbar navbar-${Primary} navbar-expand-lg bg-${Primary} `}>
           <div className="container-fluid">
-            <Link to="/" alt="HatsOff Logo" className="navbar-brand" ><img src="/logo-white.png" alt="logo" className="w-50 logo" style={{ filter: `invert(${invert})` }} /></Link>
+            <Link to="/" alt="HatsOff Logo" className="navbar-brand" ><img src="/logo-white.png" alt="logo" className="w-50 h-50 logo" style={{ filter: `invert(${invert})` }} /></Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>

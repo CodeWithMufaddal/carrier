@@ -158,6 +158,30 @@ const BannerPopUp = () => {
                                     </div>
                                  </div>
                               )}
+                              {(
+                                 <div className="m-1 mt-2">
+                                    <div className="w-100 h-100  position-relative overflow-hidden " >
+                                       <img
+                                          src={`https://source.unsplash.com/random/1200x400`}
+                                          alt="file"
+                                          className={`w-100 h-100`}
+                                       />
+                                       <div className="progressMasking" style={{ transform: `translateX(${iprogress * 7.5}px)` }}   ></div>
+
+                                       <div className={`position-absolute top-0 text-white `} style={{ left: '20%' }}>
+
+                                          <div className={` f-1 fw-bold `}>
+                                             {cbanner.title}
+                                          </div>
+                                          <div className={` f-2 fw-500 `}>
+                                             {cbanner.discription}
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              )}
+
+
                            </div>
                            <span id="passwordHelpInline" className="form-text text-danger">
                               *Only image  are allowed

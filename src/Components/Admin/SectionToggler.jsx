@@ -8,8 +8,11 @@ const SectionToggler = () => {
    const { container, setContainer } = useBanner();
    const { style } = useTheme();
 
-   const { Secondary, Htext, Ntext } = style;
+   const { Primary, Secondary, Htext, Ntext } = style;
 
+   let bannerUrl = location.pathname === '/admin/banner'
+   let openingUrl = location.pathname === '/admin/opening'
+   let appliedAplicationUrl = location.pathname === '/admin/appliedApplication'
 
    return (
       <div className=" navbar-expand-lg">
@@ -28,24 +31,24 @@ const SectionToggler = () => {
 
                   <div className="flex-column d-flex  navbar-nav ">
 
-                     <Link to="/admin/banner" className={` p-3 my-1 border-0 btn  rounded-0  bg-${location.pathname === '/admin/banner' ? Htext : Secondary} `} >
-                        <button type="button" className={`btn border-0 `} onClick={() => setContainer("Banner")}>
+                     <Link to="/admin/banner" className={` p-3 my-1 border-0 btn   rounded-0  bg-${bannerUrl ? Htext : Secondary} `} >
+                        <button type="button" className={`btn border-0 text-${bannerUrl ? Primary : Ntext} `} onClick={() => setContainer("Banner")}>
                            <div className="manageBanner">
                               Banner
                            </div>
                         </button>
                      </Link>
 
-                     <Link to="/admin/opening" className={` p-3 my-1 border-0 btn  rounded-0  bg-${location.pathname === '/admin/opening' ? Htext : Secondary} `}>
-                        <button type="button" className={` btn text-decoration-none  border-0 `} onClick={() => setContainer("Openings")}>
+                     <Link to="/admin/opening" className={` p-3 my-1 border-0 btn  rounded-0  bg-${openingUrl ? Htext : Secondary} `}>
+                        <button type="button" className={` btn text-decoration-none text-${openingUrl ? Primary : Ntext} border-0 `} onClick={() => setContainer("Openings")}>
                            <div className="manageOpenings">
                               Manage Openings
                            </div>
                         </button>
                      </Link>
 
-                     <Link to="/admin/appliedApplication" className={` p-3 my-1 border-0 btn  rounded-0  bg-${location.pathname === '/admin/appliedApplication' ? Htext : Secondary} `}>
-                        <button type="button" className="btn border-0 " >
+                     <Link to="/admin/appliedApplication" className={` p-3 my-1 border-0 btn  rounded-0  bg-${appliedAplicationUrl ? Htext : Secondary} `}>
+                        <button type="button" className={`btn text-decoration-none border-0 text-${appliedAplicationUrl ? Primary : Ntext} `} >
                            <div className="viewApplication">
                               view Application
                            </div>
